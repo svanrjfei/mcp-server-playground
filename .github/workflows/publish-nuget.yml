@@ -1,0 +1,44 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Derive package version from tag
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Publishing version: $VERSION"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+
+      - name: Pack
+        run: dotnet pack -c Release --no-build --output ./artifacts /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+
+      - name: Publish packages to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push "./artifacts/*.nupkg" --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate --timeout 1200
