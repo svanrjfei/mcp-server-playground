@@ -43,7 +43,7 @@ jobs:
         id: nuget-auth
         uses: NuGet/login@v1
         with:
-          user-agent: github-actions
+          user: svanrj
 
       - name: Publish packages to NuGet
         env:
