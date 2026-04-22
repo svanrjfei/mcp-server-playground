@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -38,7 +39,13 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release --no-build --output ./artifacts /p:PackageVersion=${{ env.PACKAGE_VERSION }}
 
+      - name: Authenticate with NuGet trusted publishing
+        id: nuget-auth
+        uses: NuGet/login@v1
+        with:
+          user-agent: github-actions
+
       - name: Publish packages to NuGet
         env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          NUGET_API_KEY: ${{ steps.nuget-auth.outputs.NUGET_API_KEY }}
         run: dotnet nuget push "./artifacts/*.nupkg" --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate --timeout 1200
