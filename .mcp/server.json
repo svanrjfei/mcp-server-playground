@@ -1,22 +1,28 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
-  "description": "<your description here>",
-  "name": "io.github.<your GitHub username here>/<your repo name>",
+  "description": "A playground MCP server with sample random number and weather tools.",
+  "name": "io.github.svanrjfei/mcp-server-playground",
   "version": "0.1.0-beta",
   "packages": [
     {
       "registryType": "nuget",
-      "identifier": "<your package ID here>",
+      "identifier": "Svanrj.McpServer.Playground",
       "version": "0.1.0-beta",
       "transport": {
         "type": "stdio"
       },
       "packageArguments": [],
-      "environmentVariables": []
+      "environmentVariables": [
+        {
+          "name": "WEATHER_CHOICES",
+          "description": "Optional comma-separated weather descriptions for the sample weather tool.",
+          "required": false
+        }
+      ]
     }
   ],
   "repository": {
-    "url": "https://github.com/<your GitHub username here>/<your repo name>",
+    "url": "https://github.com/svanrjfei/mcp-server-playground",
     "source": "github"
   }
 }

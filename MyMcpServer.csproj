@@ -20,10 +20,14 @@
 
         <!-- Set recommended package metadata -->
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageId>SampleMcpServer</PackageId>
+        <PackageId>Svanrj.McpServer.Playground</PackageId>
         <PackageVersion>0.1.0-beta</PackageVersion>
-        <PackageTags>AI; MCP; server; stdio</PackageTags>
-        <Description>An MCP server using the MCP C# SDK.</Description>
+        <Authors>svanrjfei</Authors>
+        <PackageTags>AI;MCP;server;stdio;playground;dotnet</PackageTags>
+        <Description>A playground MCP server built with .NET, featuring sample random number and weather tools.</Description>
+        <RepositoryUrl>https://github.com/svanrjfei/mcp-server-playground.git</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/svanrjfei/mcp-server-playground</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <!-- Include additional files for browsing the MCP server. -->
